@@ -3,6 +3,7 @@ import psycopg2
 from dotenv import load_dotenv
 import boto3
 from botocore.exceptions import ClientError
+import redis
 # Load environment variables from .env file
 load_dotenv()
 
@@ -79,8 +80,7 @@ def test_r2_connection():
 
 def test_upstash_redis_connection():
     """Test connection to Upstash Redis using redis-py library"""
-    import os
-    import redis
+
 
     try:
         rest_token = os.getenv('UPSTASH_REDIS_REST_TOKEN')
