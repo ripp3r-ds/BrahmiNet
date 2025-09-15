@@ -1,6 +1,5 @@
--- infra/init_db.sql
+
 -- Init DB schema for BrahmiNet (template-first)
--- NOTE: adjust embedding vector dimension (1536) to match your embedding model
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -32,8 +31,8 @@ CREATE TABLE IF NOT EXISTS memes (
   width int,
   height int,
 
-  -- Variant-extracted text (aggregate / optional)
-  extracted_text text,           -- aggregated / representative text (optional)
+  -- Variant-extracted text (aggregate)
+  extracted_text text,           -- aggregated / representative text
   text_hash text,                -- md5(extracted_text) computed by trigger
 
   -- Film / context fields (Scholar enrichment)
@@ -87,7 +86,7 @@ CREATE TABLE IF NOT EXISTS meme_variants (
   original_url text,         -- original discovery URL for the variant
   overlay_text text,         -- OCR / extracted overlay text
   text_hash text,            -- md5(overlay_text)
-  ocr_confidence numeric,    -- optional confidence from OCR
+  ocr_confidence numeric,    -- confidence from OCR
   variant_metadata jsonb,    -- any provider-specific metadata
   status text DEFAULT 'variant_discovered',
   discovered_at timestamptz DEFAULT now(),
